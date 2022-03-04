@@ -39,7 +39,7 @@ rs2xml.jar <br />
 
 **Login** <br />
 
-![This is an image](https://github.com/Niranjani-K/Library-Management-System/blob/main/Screenshots/login.JPG)
+
 
 **Admin Page** <br />
 
