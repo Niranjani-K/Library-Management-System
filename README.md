@@ -39,9 +39,19 @@ rs2xml.jar <br />
 
 **Login** <br />
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+
+
+**Admin Page** <br />
+
+![This is an image](https://github.com/Niranjani-K/Library-Management-System/blob/main/Screenshots/Admin_page.JPG)
 
 **Registeration** <br />
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+![This is an image](https://github.com/Niranjani-K/Library-Management-System/blob/main/Screenshots/Registeration.JPG)
+
+**Student Page** <br />
+
+![This is an image](https://github.com/Niranjani-K/Library-Management-System/blob/main/Screenshots/Student_page.JPG)
+
+
 
