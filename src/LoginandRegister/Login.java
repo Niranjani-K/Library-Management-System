@@ -16,10 +16,11 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.DriverManager;
-/*
- *
- * @author 91861
- */
+
+ class Global {
+    public static String EmptyUsername = "Enter your email";
+    public static String EmptyPassword = "EnterPassword";
+}
 public class Login extends javax.swing.JFrame {
 
     /** Creates new form Login */
@@ -42,18 +43,18 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         loginForm = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         loginForm1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         usernameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         registerLink = new javax.swing.JLabel();
-        studentradio = new javax.swing.JRadioButton();
-        adminradio = new javax.swing.JRadioButton();
         loginButton = new javax.swing.JButton();
         enterPassword = new javax.swing.JPasswordField();
         enterUsername = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        showPsswd = new javax.swing.JCheckBox();
 
         jPanel1.setBackground(new java.awt.Color(132, 140, 207));
 
@@ -118,20 +119,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        studentradio.setText("Student");
-        studentradio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentradioActionPerformed(evt);
-            }
-        });
-
-        adminradio.setText("Admin");
-        adminradio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminradioActionPerformed(evt);
-            }
-        });
-
         loginButton.setBackground(new java.awt.Color(102, 0, 102));
         loginButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,9 +130,39 @@ public class Login extends javax.swing.JFrame {
         });
 
         enterPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        enterPassword.addActionListener(new java.awt.event.ActionListener() {
+
+        enterUsername.setForeground(new java.awt.Color(153, 153, 153));
+        enterUsername.setText("Enter your email");
+        enterUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                enterUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                enterUsernameFocusLost(evt);
+            }
+        });
+
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setForeground(new java.awt.Color(102, 0, 102));
+        jRadioButton1.setText("admin");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterPasswordActionPerformed(evt);
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setForeground(new java.awt.Color(102, 0, 102));
+        jRadioButton2.setText("student");
+
+        showPsswd.setBackground(new java.awt.Color(255, 255, 255));
+        showPsswd.setForeground(new java.awt.Color(102, 0, 102));
+        showPsswd.setText("Show Password");
+        showPsswd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPsswdActionPerformed(evt);
             }
         });
 
@@ -156,25 +173,30 @@ public class Login extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(3, 3, 3)
-                        .add(registerLink))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(loginButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 77, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(loginButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 77, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(14, 14, 14))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(usernameLabel)
-                            .add(passwordLabel))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(adminradio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 66, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 18, 18)
-                                .add(studentradio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jRadioButton1)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jRadioButton2)
+                                .add(2, 2, 2))
+                            .add(showPsswd))
+                        .add(6, 6, 6))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(jPanel2Layout.createSequentialGroup()
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(usernameLabel)
+                                .add(passwordLabel))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                 .add(enterPassword, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                .add(enterUsername)))))
+                                .add(enterUsername)))
+                        .add(jPanel2Layout.createSequentialGroup()
+                            .add(3, 3, 3)
+                            .add(registerLink))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -186,19 +208,19 @@ public class Login extends javax.swing.JFrame {
                     .add(enterUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(passwordLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(enterPassword, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                        .add(7, 7, 7)))
-                .add(10, 10, 10)
+                    .add(passwordLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .add(enterPassword))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(showPsswd)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 7, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(studentradio)
-                    .add(adminradio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                    .add(jRadioButton2)
+                    .add(jRadioButton1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(loginButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(registerLink)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -227,13 +249,12 @@ public class Login extends javax.swing.JFrame {
         r.setVisible(true);
     }//GEN-LAST:event_registerLinkMouseClicked
 
-    private void studentradioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentradioActionPerformed
-       
-    }//GEN-LAST:event_studentradioActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String userName = enterUsername.getText();
         String psswd = new String(enterPassword.getPassword());
+        jRadioButton1.setActionCommand("admin");
+        jRadioButton2.setActionCommand("student");
+        String selectedUser = buttonGroup1.getSelection().getActionCommand();
          if(userName.equals("")) //If username is null
         {
             JOptionPane.showMessageDialog(null,"Please enter username"); //Display dialog box with the message
@@ -242,7 +263,7 @@ public class Login extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"Please enter password"); //Display dialog box with the message
         }
-        if(adminradio.isSelected() && !studentradio.isSelected()){
+        if(selectedUser.equals("admin")){
             
             if(userName.equals("admin")&&psswd.equals("admin123")){
                 Admin a = new Admin();
@@ -255,12 +276,12 @@ public class Login extends javax.swing.JFrame {
                 enterPassword.setText("");
             }
         }
-        else if (!adminradio.isSelected() && studentradio.isSelected()){
+        else if (selectedUser.equals("student")){
 
         PreparedStatement ps;
         ResultSet rs;
 
-        String query = "SELECT * FROM `student` WHERE `RollNo` =? AND `Password` =?";
+        String query = "SELECT * FROM `student` WHERE `email` =? AND `Password` =?";
 
         try {
             ps = myConnection.getConnection().prepareStatement(query);
@@ -289,21 +310,38 @@ public class Login extends javax.swing.JFrame {
             System.out.println(ex);
            }
         }   
-    else{
-        JOptionPane.showMessageDialog(null, "Select either admin or student", "Login Failed", 2);
-        }
+    
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void adminradioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminradioActionPerformed
-        // TODO add your handling code here:
-        if(adminradio.isSelected()){
-            admin = true;
+    private void enterUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_enterUsernameFocusGained
+         
+        if(enterUsername.getText().equals(Global.EmptyUsername))
+        {
+            enterUsername.setText("");
+            
         }
-    }//GEN-LAST:event_adminradioActionPerformed
+        if(!enterUsername.getText().equals(Global.EmptyUsername)){
+            enterUsername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_enterUsernameFocusGained
 
-    private void enterPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterPasswordActionPerformed
+    private void enterUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_enterUsernameFocusLost
+         
+        if(enterUsername.getText().equals("")){
+            enterUsername.setText(Global.EmptyUsername);
+            enterUsername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_enterUsernameFocusLost
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_enterPasswordActionPerformed
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void showPsswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPsswdActionPerformed
+        //JCheckBox s = (JCheckBox) showPsswd.getSource();
+        if(showPsswd.isSelected()) enterPassword.setEchoChar((char)0);
+        else enterPassword.setEchoChar((Character) UIManager.get("PasswordField.echoChar"));
+    }//GEN-LAST:event_showPsswdActionPerformed
     
     /**
      * @param args the command line arguments
@@ -341,20 +379,20 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton adminradio;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JPasswordField enterPassword;
     private javax.swing.JTextField enterUsername;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginForm;
     private javax.swing.JLabel loginForm1;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel registerLink;
-    private javax.swing.JRadioButton studentradio;
+    private javax.swing.JCheckBox showPsswd;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 
