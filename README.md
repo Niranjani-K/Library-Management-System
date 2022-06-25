@@ -35,7 +35,7 @@ rs2xml.jar <br />
 4.Return Book <br />
 6.Logout <br />
 
-## AWorking of System (screenshots)
+## A Working of System (screenshots)
 
 **Login** <br />
 
